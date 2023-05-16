@@ -1,0 +1,109 @@
+﻿@model Dictionary<string, List<ItunesResult>>
+
+@{
+    ViewData["Title"] = "iTunes Search";
+}
+
+<!-- Widget for displaying albums -->
+@if (Model.Count == 0)
+{
+    <div class="container d-flex align-items-center justify-content-center" style="height: 100vh">
+        <div class="text-center">
+            <h1 class="h1 text-primary">Welcome to the ReachMobi Itunes Searching App!</h1>
+            <div class="card text-white bg-primary">
+              <div class="card-header">Welcome!</div>
+              <div class="card-body">
+                <p>The following web application calls the 
+                    <a class = "text-bg-light" href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/">
+                        Apple iTunes API
+                    </a>
+                     to allow users to search iTunes. The results get displayed in the webpage and users are able to click on the results
+                    which will navigate them to the corresponding iTunes page. 
+                 </p>
+                 <p>
+                     Additionally, there is a server side component that tracks
+                    how many clicks per result are made within the app. The view to display the count of clicks information is in the "View Click Data"
+                    tab link!
+                 </p>
+              </div>
+            </div>
+            <form method="post" class="d-flex searchMobile" action="@Url.Action("Index", "Home")">
+                <input type="search" class="form-control me-sm-2 searchMobile" placeholder="Search Itunes" name="search" id="search" />
+                <button type="submit" class="btn btn-secondary my-2 my-sm-0 searchMobile">Search</button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+
+    <form method="post" class="d-flex searchMobile" action="@Url.Action("Index", "Home")">
+        <input type="search" class="form-control me-sm-2 searchMobile" placeholder="Search Itunes" name="search" id="search" />
+        <button type="submit" class="btn btn-secondary my-2 my-sm-0 searchMobile">Search</button>
+    </form>
+
+    @foreach(var keyValuePair in Model)
+    {
+
+
+        String[] array = { "book", "album", "song", "artist", "pdf" };
+        @if (array.Contains(@keyValuePair.Key))
+        {
+            <h2> @char.ToUpper(@keyValuePair.Key[0])@keyValuePair.Key.Substring(1)s </h2>
+        }
+        else if (@keyValuePair.Key == "coached-audio")
+        {
+            <h2> Coached Audio </h2>
+        }
+        else if (@keyValuePair.Key == "feature-movie")
+        {
+            <h2> Feature Movies </h2>
+        }
+        else if (@keyValuePair.Key == "interactive-booklet")
+        {
+            <h2> Interactive Booklets </h2>
+        }
+        else if (@keyValuePair.Key == "music-video")
+        {
+            <h2> Music Videos </h2>
+        }
+        else if (@keyValuePair.Key == "podcast-episode")
+        {
+            <h2> Podcast Episodes </h2>
+        }
+        else if (@keyValuePair.Key == "software-package")
+        {
+            <h2> Software/App </h2>
+        }
+        else if (@keyValuePair.Key == "tv-episode")
+        {
+            <h2> TV Episodes </h2>
+        }
+        else
+        {
+            <h2> Other </h2>
+        }
+        <div class="widget-container">
+            <div class="widget">
+                @foreach (var r in keyValuePair.Value)
+                {
+                    <div class="widget-item">
+                        <a href="@Url.Action("AddClickItunesData", "Home", new { trackId = @r.trackId, redirectUrl = r.trackViewUrl})">
+
+
+                            <img src=@r.artworkUrl100>
+
+                            <h3>@r.trackName</h3>
+                            <p>@r.collectionName</p>
+                        </a>
+                    </div>
+
+                }
+            </div>
+        </div>
+    }
+}
+
+
+
+

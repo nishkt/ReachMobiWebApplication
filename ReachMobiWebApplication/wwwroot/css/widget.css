@@ -1,0 +1,67 @@
+﻿
+/* Styles for the widgets */
+.widget-container {
+    width: 100%; /* Set the width to 100% */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks in the widget items */
+}
+
+.widget {
+    display: inline-flex; /* Use inline-flex to make the items appear in a single line */
+    align-content: center;
+    flex-wrap: nowrap; /* Prevent wrapping of the items */
+}
+
+.widget-item {
+    width: 180px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px #ccc;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.widget-item img {
+    width: 100%;
+    height: auto;
+}
+
+.widget-item h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.widget-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.widget-item:hover {
+    border-color: #666;
+    box-shadow: 2px 2px 5px #666;
+    transform: scale(1.1);
+}
+
+.widget-item:hover a {
+    cursor: pointer;
+}
+
+@@media screen and (max-width: 767px) {
+    .widget-item {
+        flex-basis: 100%;
+    }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+
+
+

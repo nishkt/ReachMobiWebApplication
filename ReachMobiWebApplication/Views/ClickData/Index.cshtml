@@ -1,0 +1,36 @@
+﻿@model List<ClickOccurences>
+
+@{
+    ViewData["Title"] = "Click Data";
+}
+
+<div class="container">
+    <h1 class="text-center mb-4">iTunes Search Results</h1>
+    <form method="post" class="d-flex searchMobile" action="@Url.Action("Index", "Home")">
+        <input type="search" class="form-control me-sm-2 searchMobile" placeholder="Search Itunes" name="search" id="search" />
+        <button type="submit" class="btn btn-secondary my-2 my-sm-0 searchMobile">Search</button>
+    </form>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header">
+                        <img class="card-img-top img-fluid rounded" src="@item.itunesResult.artworkUrl100" alt="@item.itunesResult.trackName">
+                    </div>
+                    
+                    <div class="card-body" style="max-height: 100px; overflow: hidden;">
+                        <h4 class="card-title h4">@item.itunesResult.trackName</h4>
+                        <p class="card-text text-muted">@item.itunesResult.artistName</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                      <div class="d-flex justify-content-center align-items-center">
+                        <h4 class="large text-muted">Clicks:</h4>
+                        <p class="h3 text-primary mr-2">@item.numberOfOccurences</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
